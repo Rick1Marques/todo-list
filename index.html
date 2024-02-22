@@ -12,13 +12,18 @@
       <form>
         <label for="titel">Titel</label>
         <input id="titel" type="text" />
-        <label for="priority">Titel</label>
-        <input id="priority" type="number" min="1" max="5" />
-        <label for="description">Titel</label>
+        <label for="priority">Priority</label>
+        <select name="priority" id="priority">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <label for="description">Description</label>
         <input id="description" type="text" />
-        <label for="dead-line"></label>
-        <input id="dead-line" type="date" />
+        <label for="deadline">Deadline</label>
+        <input id="deadline" type="date" />
       </form>
     </template>
+    <div id="app"></div>
   </body>
 </html>
