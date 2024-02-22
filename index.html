@@ -7,5 +7,18 @@
     <link rel="stylesheet" href="app.css" />
     <script type="module" src="dist/bundle.js"></script>
   </head>
-  <body></body>
+  <body>
+    <template id="inputs">
+      <form>
+        <label for="titel">Titel</label>
+        <input id="titel" type="text" />
+        <label for="priority">Titel</label>
+        <input id="priority" type="number" min="1" max="5" />
+        <label for="description">Titel</label>
+        <input id="description" type="text" />
+        <label for="dead-line"></label>
+        <input id="dead-line" type="date" />
+      </form>
+    </template>
+  </body>
 </html>
