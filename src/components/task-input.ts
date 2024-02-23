@@ -4,17 +4,12 @@ export class TaskInput {
   element: HTMLFormElement;
 
   constructor() {
-    this.templateElement = document.getElementById(
-      "inputs"
-    )! as HTMLTemplateElement;
+    this.templateElement = document.getElementById("inputs")! as HTMLTemplateElement;
     this.hostElement = document.getElementById("app")! as HTMLDivElement;
-    const importedNode = document.importNode(
-      this.templateElement.content,
-      true
-    );
+    const importedNode = document.importNode(this.templateElement.content, true);
     this.element = importedNode.firstElementChild as HTMLFormElement;
-    this.attach();
     this.configure();
+    this.attach();
   }
 
   configure() {
@@ -28,23 +23,11 @@ export class TaskInput {
   }
 
   private gatherData(): [string, string, string, Date] {
-    const titelInput = (document.getElementById("titel")! as HTMLInputElement)
-      .value;
-    const priorityInput = (
-      document.getElementById("priority")! as HTMLInputElement
-    ).value;
-    const descriptionInput = (
-      document.getElementById("description")! as HTMLInputElement
-    ).value;
-    const deadlineInput = (
-      document.getElementById("deadline")! as HTMLInputElement
-    ).value;
-    return [
-      titelInput,
-      priorityInput,
-      descriptionInput,
-      new Date(deadlineInput),
-    ];
+    const titelInput = (document.getElementById("titel")! as HTMLInputElement).value;
+    const priorityInput = (document.getElementById("priority")! as HTMLInputElement).value;
+    const descriptionInput = (document.getElementById("description")! as HTMLInputElement).value;
+    const deadlineInput = (document.getElementById("deadline")! as HTMLInputElement).value;
+    return [titelInput, priorityInput, descriptionInput, new Date(deadlineInput)];
   }
 
   private attach() {
