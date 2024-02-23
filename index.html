@@ -7,5 +7,24 @@
     <link rel="stylesheet" href="app.css" />
     <script type="module" src="dist/bundle.js"></script>
   </head>
-  <body></body>
+  <body>
+    <template id="inputs">
+      <form>
+        <label for="titel">Titel</label>
+        <input id="titel" type="text" />
+        <label for="priority">Priority</label>
+        <select name="priority" id="priority">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <label for="description">Description</label>
+        <input id="description" type="text" />
+        <label for="deadline">Deadline</label>
+        <input id="deadline" type="date" />
+        <button type="submit">Add</button>
+      </form>
+    </template>
+    <div id="app"></div>
+  </body>
 </html>
