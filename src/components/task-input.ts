@@ -1,3 +1,5 @@
+import { taskState } from "../state/task-state";
+
 export class TaskInput {
   templateElement: HTMLTemplateElement;
   hostElement: HTMLDivElement;
@@ -19,7 +21,8 @@ export class TaskInput {
   private submitHandler(event: Event) {
     event.preventDefault();
     const inputData = this.gatherData();
-    console.log(inputData);
+    const [title, priority, description, deadline] = inputData;
+    taskState.addTask(title, priority, description, deadline);
   }
 
   private gatherData(): [string, string, string, Date] {
