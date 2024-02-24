@@ -1,7 +1,6 @@
-import { TaskList } from "../components/task-list";
-
 class TaskState {
   private tasks: any[] = [];
+  private listeners: Function[] = [];
   private static instance: TaskState;
   private constructor() {}
 
@@ -22,6 +21,13 @@ class TaskState {
       deadline: deadline,
     };
     this.tasks.push(task);
+    this.listeners.forEach((listenerFn) => {
+      listenerFn(this.tasks.slice());
+    });
+  }
+
+  addListener(listenerFn: Function) {
+    this.listeners.push(listenerFn);
   }
 }
 
