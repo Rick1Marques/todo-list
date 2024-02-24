@@ -19,6 +19,7 @@ class TaskState {
       priority: priority,
       description: description,
       deadline: deadline,
+      status: "backlog",
     };
     this.tasks.push(task);
     this.listeners.forEach((listenerFn) => {

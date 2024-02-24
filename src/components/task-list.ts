@@ -11,8 +11,11 @@ export class TaskList {
     this.templateElement = document.getElementById("task-list")! as HTMLTemplateElement;
     const importedNode = document.importNode(this.templateElement.content, true);
     this.element = importedNode.firstElementChild as HTMLElement;
+    this.element.id = `${this.listName}-list`;
+
     taskState.addListener((tasks: any[]) => {
-      this.assignedTasks = tasks;
+      const relevantTasks = tasks.filter((task) => this.listName === task.status);
+      this.assignedTasks = relevantTasks;
       this.renderTasks();
     });
     this.render();
@@ -29,11 +32,11 @@ export class TaskList {
     });
   }
 
-  private attach() {
-    this.hostElement.append(this.element);
-  }
-
   private render() {
     this.element.querySelector("h2")!.textContent = this.listName.toUpperCase();
+  }
+
+  private attach() {
+    this.hostElement.append(this.element);
   }
 }
