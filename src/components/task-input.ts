@@ -1,20 +1,14 @@
 import { taskState } from "../state/task-state";
+import { BaseComponent } from "./base-component";
 
-export class TaskInput {
-  templateElement: HTMLTemplateElement;
-  hostElement: HTMLDivElement;
-  element: HTMLFormElement;
-
+export class TaskInput extends BaseComponent<HTMLDivElement, HTMLFormElement> {
   titelElement: HTMLInputElement;
   priorityElement: HTMLInputElement;
   descriptionElement: HTMLInputElement;
   deadlineElement: HTMLInputElement;
 
   constructor() {
-    this.templateElement = document.getElementById("inputs")! as HTMLTemplateElement;
-    this.hostElement = document.getElementById("app")! as HTMLDivElement;
-    const importedNode = document.importNode(this.templateElement.content, true);
-    this.element = importedNode.firstElementChild as HTMLFormElement;
+    super("inputs", "app");
 
     this.titelElement = this.element.querySelector("#titel")! as HTMLInputElement;
     this.priorityElement = this.element.querySelector("#priority")! as HTMLInputElement;
@@ -22,7 +16,6 @@ export class TaskInput {
     this.deadlineElement = this.element.querySelector("#deadline")! as HTMLInputElement;
 
     this.configure();
-    this.attach();
   }
 
   configure() {
@@ -50,9 +43,5 @@ export class TaskInput {
     this.priorityElement.value = "";
     this.descriptionElement.value = "";
     this.deadlineElement.value = "";
-  }
-
-  private attach() {
-    this.hostElement.append(this.element);
   }
 }

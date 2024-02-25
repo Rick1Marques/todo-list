@@ -1,5 +1,7 @@
+import { Task, TaskStatus } from "../models/tasks";
+
 class TaskState {
-  private tasks: any[] = [];
+  private tasks: Task[] = [];
   private listeners: Function[] = [];
   private static instance: TaskState;
   private constructor() {}
@@ -13,14 +15,15 @@ class TaskState {
   }
 
   addTask(title: string, priority: string, description: string, deadline: Date) {
-    const task = {
-      id: Math.random().toString(),
-      title: title,
-      priority: priority,
-      description: description,
-      deadline: deadline,
-      status: "backlog",
-    };
+    const task = new Task(
+      Math.random().toString(),
+      title,
+      priority,
+      description,
+      deadline,
+      TaskStatus.backlog
+    );
+
     this.tasks.push(task);
     this.listeners.forEach((listenerFn) => {
       listenerFn(this.tasks.slice());

@@ -1,25 +1,20 @@
 import { taskState } from "../state/task-state";
+import { Task, TaskStatus } from "../models/tasks";
+import { BaseComponent } from "./base-component";
 
-export class TaskList {
-  templateElement: HTMLTemplateElement;
-  hostElement: HTMLDivElement;
-  element: HTMLElement;
-  assignedTasks: any[] = [];
+export class TaskList extends BaseComponent<HTMLDivElement, HTMLElement> {
+  assignedTasks: Task[] = [];
 
-  constructor(private listName: "backlog" | "inProgress" | "review" | "done") {
-    this.hostElement = document.getElementById("app")! as HTMLDivElement;
-    this.templateElement = document.getElementById("task-list")! as HTMLTemplateElement;
-    const importedNode = document.importNode(this.templateElement.content, true);
-    this.element = importedNode.firstElementChild as HTMLElement;
+  constructor(private listName: TaskStatus) {
+    super("task-list", "app");
     this.element.id = `${this.listName}-list`;
 
-    taskState.addListener((tasks: any[]) => {
+    taskState.addListener((tasks: Task[]) => {
       const relevantTasks = tasks.filter((task) => this.listName === task.status);
       this.assignedTasks = relevantTasks;
       this.renderTasks();
     });
     this.render();
-    this.attach();
   }
 
   private renderTasks() {
@@ -34,9 +29,5 @@ export class TaskList {
 
   private render() {
     this.element.querySelector("h2")!.textContent = this.listName.toUpperCase();
-  }
-
-  private attach() {
-    this.hostElement.append(this.element);
   }
 }
