@@ -1,18 +1,30 @@
-export class TaskList {
-  templateElement: HTMLTemplateElement;
-  hostElement: HTMLDivElement;
-  element: HTMLElement;
-  constructor(private listName: "backlog" | "inProgress" | "review" | "done") {
-    this.hostElement = document.getElementById("app")! as HTMLDivElement;
-    this.templateElement = document.getElementById("task-list")! as HTMLTemplateElement;
-    const importedNode = document.importNode(this.templateElement.content, true);
-    this.element = importedNode.firstElementChild as HTMLElement;
+import { taskState } from "../state/task-state";
+import { Task, TaskStatus } from "../models/tasks";
+import { BaseComponent } from "./base-component";
+
+export class TaskList extends BaseComponent<HTMLDivElement, HTMLElement> {
+  assignedTasks: Task[] = [];
+
+  constructor(private listName: TaskStatus) {
+    super("task-list", "app");
+    this.element.id = `${this.listName}-list`;
+
+    taskState.addListener((tasks: Task[]) => {
+      const relevantTasks = tasks.filter((task) => this.listName === task.status);
+      this.assignedTasks = relevantTasks;
+      this.renderTasks();
+    });
     this.render();
-    this.attach();
   }
 
-  private attach() {
-    this.hostElement.append(this.element);
+  private renderTasks() {
+    const ulElement = this.element.querySelector("ul")! as HTMLUListElement;
+    ulElement.innerHTML = "";
+    this.assignedTasks.forEach((task) => {
+      const liElement = document.createElement("li");
+      liElement.textContent = task.title;
+      ulElement.appendChild(liElement);
+    });
   }
 
   private render() {
