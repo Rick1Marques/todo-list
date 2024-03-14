@@ -1,6 +1,7 @@
 import { taskState } from "../state/task-state";
 import { Task, TaskStatus } from "../models/tasks";
 import { BaseComponent } from "./base-component";
+import { TaskCard } from "./task-card";
 
 export class TaskList extends BaseComponent<HTMLDivElement, HTMLElement> {
   assignedTasks: Task[] = [];
@@ -20,10 +21,10 @@ export class TaskList extends BaseComponent<HTMLDivElement, HTMLElement> {
   private renderTasks() {
     const ulElement = this.element.querySelector("ul")! as HTMLUListElement;
     ulElement.innerHTML = "";
+    ulElement.id = `${this.listName}-tasks`;
     this.assignedTasks.forEach((task) => {
-      const liElement = document.createElement("li");
-      liElement.textContent = task.title;
-      ulElement.appendChild(liElement);
+      // insert task-card
+      new TaskCard(ulElement.id, task);
     });
   }
 
