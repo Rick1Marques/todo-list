@@ -25,13 +25,27 @@ class TaskState {
     );
 
     this.tasks.push(task);
-    this.listeners.forEach((listenerFn) => {
-      listenerFn(this.tasks.slice());
-    });
+    console.log("add", task);
+    this.updateListeners();
   }
 
   addListener(listenerFn: Function) {
     this.listeners.push(listenerFn);
+  }
+
+  moveTask(taskId: string, newStatus: TaskStatus) {
+    const task = this.tasks.find((task) => task.id === taskId);
+    console.log("move", task);
+    if (task!.status !== newStatus) {
+      task!.status = newStatus;
+    }
+    this.updateListeners();
+  }
+
+  updateListeners() {
+    this.listeners.forEach((listenerFn) => {
+      listenerFn(this.tasks.slice());
+    });
   }
 }
 
