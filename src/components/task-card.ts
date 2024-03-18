@@ -14,9 +14,10 @@ export class TaskCard extends BaseComponent<HTMLUListElement, HTMLLIElement> imp
 
   private render() {
     const { title, priority, description, deadline } = this.task;
+    const formattedDate = `${deadline.getDate()}.${deadline.getMonth()}.${deadline.getFullYear()}`;
 
     this.element.querySelector("h2")!.textContent = title;
-    this.element.querySelector("h3")!.textContent = deadline.toString();
+    this.element.querySelector("h3")!.textContent = formattedDate;
     this.element.querySelector("h4")!.textContent = priority;
     this.element.querySelector("p")!.textContent = description;
   }
@@ -27,7 +28,7 @@ export class TaskCard extends BaseComponent<HTMLUListElement, HTMLLIElement> imp
   }
 
   dragEndHandler(_: DragEvent) {
-    // console.log(event);
+    //
   }
 
   configure() {
